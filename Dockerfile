@@ -8,6 +8,9 @@ RUN mvn clean package -DskipTests
 # Stage 2: Run
 FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
-COPY --from=build /app/target/test-devops-1.0.0.jar app.jar
+
+# On copie n'importe quel JAR présent dans target (méthode la plus fiable)
+COPY --from=build /app/target/*.jar app.jar
+
 EXPOSE 8888
 ENTRYPOINT ["java", "-jar", "app.jar"]
