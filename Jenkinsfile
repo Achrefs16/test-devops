@@ -3,7 +3,7 @@ pipeline {
     
     environment {
         // Remplacez par votre username Docker Hub
-        DOCKERHUB_USERNAME = 'votre-username-dockerhub'
+        DOCKERHUB_USERNAME = 'achrefs161'
         IMAGE_NAME = 'test-devops'
         IMAGE_TAG = "${env.BUILD_NUMBER}"
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
