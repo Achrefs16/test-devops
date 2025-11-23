@@ -51,13 +51,13 @@ pipeline {
            }
        }
         
-            stage('Push to Docker Hub') {
+         stage('Push to Docker Hub') {
             steps {
-                echo 'Push rapide et anti-blocage vers Docker Hub...'
+                echo 'Push complet : tag + latest'
                 sh '''
                     echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
-                    docker push ${DOCKERHUB_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG} || echo "Push tag OK ou déjà présent"
-                
+                    docker push ${DOCKERHUB_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG}
+                    docker push ${DOCKERHUB_USERNAME}/${IMAGE_NAME}:latest
                     docker logout
                 '''
             }
