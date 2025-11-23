@@ -56,8 +56,8 @@ pipeline {
                 echo 'Push rapide et anti-blocage vers Docker Hub...'
                 sh '''
                     echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
-                    timeout 90 docker push ${DOCKERHUB_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG} || echo "Push tag OK ou déjà présent"
-                    timeout 90 docker push ${DOCKERHUB_USERNAME}/${IMAGE_NAME}:latest || echo "Push latest OK ou déjà présent"
+                    docker push ${DOCKERHUB_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG} || echo "Push tag OK ou déjà présent"
+                
                     docker logout
                 '''
             }
