@@ -40,15 +40,16 @@ pipeline {
             }
         }
         
-        stage('Build Docker Image') {
-            steps {
-                echo '🐳 Construction de l\'image Docker...'
-                sh '''
-                    docker build -t ${DOCKERHUB_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG} .
-                    docker tag ${DOCKERHUB_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG} ${DOCKERHUB_USERNAME}/${IMAGE_NAME}:latest
-                '''
-            }
-        }
+       stage('Build Docker Image') {
+           steps {
+               echo 'Construction de l\'image Docker (NO CACHE !)'
+               sh '''
+                   # ON FORCE LA RECONSTRUCTION COMPLÈTE À CHAQUE FOIS
+                   docker build --no-cache -t ${DOCKERHUB_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG} .
+                   docker tag ${DOCKERHUB_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG} ${DOCKERHUB_USERNAME}/${IMAGE_NAME}:latest
+               '''
+           }
+       }
         
             stage('Push to Docker Hub') {
             steps {
