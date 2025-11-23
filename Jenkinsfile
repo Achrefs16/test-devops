@@ -50,17 +50,17 @@ pipeline {
             }
         }
         
-        stage('Push to Docker Hub') {
-            steps {
-                echo '📤 Push de l\'image vers Docker Hub...'
-                sh '''
-                    echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
-                    docker push ${DOCKERHUB_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG}
-                    docker push ${DOCKERHUB_USERNAME}/${IMAGE_NAME}:latest
-                    docker logout
-                '''
-            }
-        }
+      stage('Push to Docker Hub') {
+          steps {
+              echo 'Pushing image to Docker Hub...'
+              sh '''
+                  echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
+                  docker push --quiet ${DOCKERHUB_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG}
+                  docker push --quiet ${DOCKERHUB_USERNAME}/${IMAGE_NAME}:latest
+                  docker logout
+              '''
+          }
+      }
         
         stage('Clean Local Images') {
             steps {
